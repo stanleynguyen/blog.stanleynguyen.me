@@ -1,0 +1,17 @@
+baseURL = "https://blog.stanleynguyen.me/"
+languageCode = "en-us"
+title = "Personal blog of Stanley Nguyen | software engineer & open-source enthusiast"
+googleAnalytics = "UA-167295669-2"
+theme = "github-style"
+copyright = "© 2020. Theme by <a href=\"https://github.com/MeiK2333/github-style\"><span>github-style</span></a>"
+
+[params]
+    author = "Stanley Nguyen"
+    description = "solving problems simply"
+    github = "stanleynguyen"
+    twitter = "stanley_ngn"
+    email = "hung.ngn.the@gmail.com"
+    avatar = "https://unavatar.now.sh/github/stanleynguyen"
+    url = "https://stanley.win"
+    keywords = "blog, stanleynguyen, software, engineer, open-source"
+    disableDarkMode = true
