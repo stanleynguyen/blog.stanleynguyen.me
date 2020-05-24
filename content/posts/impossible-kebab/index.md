@@ -55,7 +55,7 @@ l*x* and l*y*, respectively, are the limits for these variables (represented by 
 C is a constant that represents how hard a buyer we are.
 The higher C is, the more it takes for us to make a buy decision (And as human we’re, each one of us would have a different C value based on our personal ideologies).
 
-With l*x* and l*y* as bounds for eco-friendliness and convenience values (i.e. x > l*x* and y > l*y*), we can plot the boundary of the action zone like so — with the boundary (purple line) approaching the limit lines as we go further up or right the graphs but never converging with them (checkout this Wiki if you’d love to find out more).
+With l*x* and l*y* as bounds for eco-friendliness and convenience values (i.e. x > l*x* and y > l*y*), we can plot the boundary of the action zone like so — with the boundary (purple line) approaching the limit lines as we go further up or right the graphs but never converging with them (checkout [this Wiki](<https://en.wikipedia.org/wiki/Limit_(mathematics)>) if you’d love to find out more).
 
 {{<figure src="/posts/impossible-kebab/img/sexy_graph.png" caption="I reckon this is the kind of curve that mathematicians find sexy">}}
 
