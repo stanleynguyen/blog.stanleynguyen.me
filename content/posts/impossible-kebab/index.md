@@ -3,7 +3,7 @@ title = "My Impossible™ kebab and the economics of green products"
 date = 2020-05-06T14:53:23.322Z
 author = "stanleynguyen"
 keywords = ["economics", "sustainability", "product design", "global warming", "environment"]
-cover = ""
+cover = "posts/impossible-kebab/img/kebab_graph.png"
 summary = "A thought and food experiment from a neutral environmentalist"
 +++
 
