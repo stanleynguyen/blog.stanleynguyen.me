@@ -1,6 +1,6 @@
 +++
 title = "To log, or not to log, that is the question."
-date = 2020-06-14T18:00:28+08:00
+date = 2020-06-14T13:13:55.496Z
 author = "stanleynguyen"
 keywords = ["logging", "devops", "architecture", "observability", "reliability", "productivity", "code quality"]
 cover = "posts/when-to-log/img/salt-logger.jpg"
@@ -10,7 +10,7 @@ summary = "A practical guide on how to make logger your friend, not an enemy"
 Logging is one of the those things are universally present in software projects with their different, unique forms (business & technical requirements) and flavors (technical stacks).
 Logging is everywhere, from small 1-person-startups' products to large enterprises' systems, or even a simple algorithmic programming question where it's needed for checking outputs at implementation steps.
 We are relying so much on log for develop, maintain, and keep our programs up and running, however, not much attention has been paid on how to design logging within our systems.
-Often times, logging is treated as a second thought and only sprinkled into source code upon implementation like some magic powder that helps lighten the day-to-day operational abyss in our system.
+Often times, logging is treated as a second thought and only sprinkled into source code upon implementation like some magic powder that helps lighten the day-to-day operational abyss in our systems.
 
 {{<figure src="img/salt-logger.jpg" width=600 >}}
 
@@ -89,6 +89,9 @@ Only this way, `log.info` won't be a dreaded legacy that obscure developers' vis
 ### The Rest (that you need to know)
 
 By now I assume you would have noticed the general theme of my proposed logging strategy revolves around clear and specific documentating logs' purposes.
+It is important that we treat logging as part of our requirements, and be specific about what keywords, messages we want to tag in log context for them to be effectively indexed.
+Only by doing that, we can be aware of each and every piece of logs that we produce, and in turn a clear vision into our systems.
+
 As logs are upgraded to first-class citizens with concerete technical requirements inside our specs, the implications are that they would need to be:
 
 - maintained and updated as the business and technical requirements evolves
