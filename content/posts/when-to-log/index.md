@@ -4,7 +4,7 @@ date = 2020-06-14T13:13:55.496Z
 author = "stanleynguyen"
 keywords = ["logging", "devops", "architecture", "observability", "reliability", "productivity", "code quality"]
 cover = "posts/when-to-log/img/salt-logger.jpg"
-summary = "A practical guide on how to make logger your friend, not an enemy"
+summary = "An alternative logging strategy to make loggers your friends, not enemies"
 +++
 
 Logging is one of the those things are universally present in software projects with their different, unique forms (business & technical requirements) and flavors (technical stacks).
