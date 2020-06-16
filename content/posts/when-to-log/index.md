@@ -3,7 +3,7 @@ title = "To log, or not to log, that is the question."
 date = 2020-06-14T13:13:55.496Z
 author = "stanleynguyen"
 keywords = ["logging", "devops", "architecture", "observability", "reliability", "productivity", "code quality"]
-cover = "posts/when-to-log/img/salt-logger.jpg"
+cover = "posts/when-to-log/img/shakespeare.jpg"
 summary = "An alternative logging strategy to make loggers your friends, not enemies"
 +++
 
@@ -71,8 +71,8 @@ While format and level for "The Ugly" logs are completely preferential on a team
 ### The Bad
 
 "The Bad" is the type of logs that addresses expected, handled errors like network issues, user inputs validation.
-In the same manners as these expected errors, "The Bad" logs only require developers' attention if there's an anomaly of occurences
-Together with a monitor set up to alert developers upon anomolies, these logs are handy to mitigate potential serious infrastructure or security problems.
+In the same manners as these expected errors, "The Bad" logs only require developers' attention if there's an anomaly of occurrences
+Together with a monitor set up to alert developers upon anomalies, these logs are handy to mitigate potential serious infrastructure or security problems.
 This type of logs should be spec-ed inside error handling technical requirements as well, and can actually be bundled if we are handling expected and unexpected errors in the same code location.
 Based on the nature of what they are making "visible" for developers, `log.warn` or `log.error` can be used for "The Bad" logs as teams' convention.
 
@@ -88,7 +88,7 @@ Only this way, `log.info` won't be a dreaded legacy that obscure developers' vis
 
 ### The Rest (that you need to know)
 
-By now I assume you would have noticed the general theme of my proposed logging strategy revolves around clear and specific documentating logs' purposes.
+By now I assume you would have noticed the general theme of my proposed logging strategy revolves around clear and specific documenting logs' purposes.
 It is important that we treat logging as part of our requirements, and be specific about what keywords, messages we want to tag in log context for them to be effectively indexed.
 Only by doing that, we can be aware of each and every piece of logs that we produce, and in turn a clear vision into our systems.
 
@@ -110,14 +110,14 @@ Hence, I have a three-step general plan for anyone who are frustrated with their
 ### Identify The Usual Suspects
 
 Since the idea is to reduce garbage logs, our first step is definitely identifying where the criminals are hiding.
-With the powerful text editors and IDEs we have nowadays (or `grep` if you are reading this in the past through a window-to-the-future), all occurences of logging can be easily identified.
-A document (or spreadsheet if you would like to be organised) documenting all of these logging occurences might be necessary if there are too many of them.
+With the powerful text editors and IDEs we have nowadays (or `grep` if you are reading this in the past through a window-to-the-future), all occurrences of logging can be easily identified.
+A document (or spreadsheet if you would like to be organised) documenting all of these logging occurrences might be necessary if there are too many of them.
 
 ### Convict them bad actors!
 
 After identifying all suspects, it's time to weed out the bad apples!
 Logs which are duplicated, unreachable are low hanging fruits that we can immediately eliminate from our source code.
-For the rest of our logging occurences, it's time to involve other stakeholders like the "inception" engineer who started the project (if that is possible), product managers, customer supports, compliance folks to answer the question: Do we need each one of these logs, and if so, what is it being used for?
+For the rest of our logging occurrences, it's time to involve other stakeholders like the "inception" engineer who started the project (if that is possible), product managers, customer supports, compliance folks to answer the question: Do we need each one of these logs, and if so, what is it being used for?
 
 ### Light at the end of the tunnel
 
