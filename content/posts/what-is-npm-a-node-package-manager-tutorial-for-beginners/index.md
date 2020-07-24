@@ -3,7 +3,7 @@ title = "What is npm? A Node Package Manager Tutorial for Beginners"
 date = 2020-06-28T11:09:13+08:00
 author = "stanleynguyen"
 keywords = ["npm", "package manager", "javascript", "nodejs"]
-cover = "posts/npm/img/cover.png"
+cover = "posts/what-is-npm-a-node-package-manager-tutorial-for-beginners/img/cover.png"
 summary = "An all-in-one essential guide for Node.js users' best sidekick"
 +++
 
