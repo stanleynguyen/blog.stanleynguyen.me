@@ -89,7 +89,7 @@ A model with eco-friendliness as a secondary selling point or one with the major
 Let’s apply our model on these EVs with the additions of a normal gasoline-powered sedan from Ford (white colour) and a hybrid car model from Toyota (grey colour).
 We should get something like this
 
-{{<figure src="/posts/impossible-kebab/img/tesla_s.png" caption="Clear winner for Tesla?">}}
+{{<figure src="/posts/impossible-kebab/img/car_graph.png" caption="Clear winner for Tesla?">}}
 
 From the rough graph that I plot above, doesn’t it look like Tesla is clearly winning the race against less eco-friendly counterparts because it’s not much less “convenient”?
 However, Tesla EVs (or other commercial EVs on the market) are not yet clearly superior to their gasoline-powered alternatives.
