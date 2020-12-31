@@ -2,7 +2,7 @@
 title = "Quick terminal-based DNS switching"
 date = 2019-10-19T14:53:23.322Z
 author = "stanleynguyen"
-cover = "/posts/dns-command/img/cover.png"
+cover = "/post/dns-command/img/cover.png"
 keywords = ["dns", "privacy", "terminal", "bash", "network", "nameserver"]
 summary = "A quick guide to switching DNS servers settings to tackle nameserver blocking & corporate proxy"
 +++

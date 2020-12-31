@@ -1,9 +1,9 @@
 +++
 title = "Going Places: How I used Golang for literally every part of a system"
-date = 2020-01-01T00:00:00+08:00
+date = 2021-01-01T00:00:00+08:00
 author = "stanleynguyen"
 keywords = ["go", "golang", "internet of things", "web assembly", "embedded system", "raspberry pi", "arduino"]
-cover = "posts/go-everywhere/img/gora.png"
+cover = "/post/go-everywhere/img/gora.png"
 summary = "Fulfilling Java's multi-decade-old promise with Go"
 +++
 
@@ -463,11 +463,10 @@ tinygo flash -target arduino uno/main.go
 
 ## System in Action
 
-Now it's time for some unveiling and see the system in action 🤩
+Now it's time for some unveiling and see the system in action 🤩.
+The complete source code can be found in [this repo](https://github.com/stanleynguyen/go-everywhere).
 
 {{< youtube TtHGwHxKqzk>}}
-
-The complete source code can be found in [this repo](https://github.com/stanleynguyen/go-everywhere).
 
 ## Famous Last Words
 

@@ -3,7 +3,7 @@ title = "To log, or not to log, that is the question."
 date = 2020-06-14T13:13:55.496Z
 author = "stanleynguyen"
 keywords = ["logging", "devops", "architecture", "observability", "reliability", "productivity", "code quality"]
-cover = "posts/when-to-log/img/shakespeare.jpg"
+cover = "/post/when-to-log/img/shakespeare.jpg"
 summary = "An alternative logging strategy to make loggers your friends, not enemies"
 +++
 

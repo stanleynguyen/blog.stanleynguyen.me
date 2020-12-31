@@ -3,7 +3,7 @@ title = "Dispel the curse of environment variables"
 date = 2020-12-02T10:26:54+08:00
 author = "stanleynguyen"
 keywords = ["environment variables", "application", "configurability", "12 factor app"]
-cover = "posts/using-environment-variables-the-right-way/img/cover.jpg"
+cover = "/post/using-environment-variables-the-right-way/img/cover.jpg"
 summary = "How to use environment variables the right way"
 +++
 

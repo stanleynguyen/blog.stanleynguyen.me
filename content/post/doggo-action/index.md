@@ -3,7 +3,7 @@ title = 'Building my Github Action to deliver doggoes to PRs'
 date = 2020-03-07T16:08:42.903Z
 author = "stanleynguyen"
 keywords = ["dog", "doggo", "doge", "github", "actions", "continuous delivery"]
-cover = "posts/doggo-action/images/dog.gif"
+cover = "/post/doggo-action/images/dog.gif"
 summary = "Because who doesn't want good boys to show up whenever they push?"
 +++
 
@@ -39,18 +39,18 @@ running `node src/index.js` to start a Node process for web applications, etc).
 For action-dogs, this is my basic setup for the main program
 
 ```typescript
-import * as core from '@actions/core';
-import * as github from '@actions/github';
-import { generate } from './doggo/generator';
+import * as core from "@actions/core";
+import * as github from "@actions/github";
+import { generate } from "./doggo/generator";
 
 (async function run(): Promise<void> {
   try {
     const ctx = github.context;
     if (!ctx.payload.pull_request) {
-      throw new Error('Not in the context of a PR!');
+      throw new Error("Not in the context of a PR!");
     }
 
-    const ghCli = new github.GitHub(core.getInput('github-token'));
+    const ghCli = new github.GitHub(core.getInput("github-token"));
     const doggo = generate();
     ghCli.issues.createComment({
       ...ctx.repo,
@@ -93,14 +93,14 @@ And with these few lines of JS
 ```js
 const dogsData = [];
 document
-  .querySelectorAll('a._2SwDiFPqIlZmUDkxHNOeqU')
+  .querySelectorAll("a._2SwDiFPqIlZmUDkxHNOeqU")
   .forEach((e) => dogsData.push(e.href));
 var dataStr =
-  'data:text/json;charset=utf-8,' +
+  "data:text/json;charset=utf-8," +
   encodeURIComponent(JSON.stringify(dogsData));
-var dlAnchorElem = document.createElement('a');
-dlAnchorElem.setAttribute('href', dataStr);
-dlAnchorElem.setAttribute('download', 'dogs.json');
+var dlAnchorElem = document.createElement("a");
+dlAnchorElem.setAttribute("href", dataStr);
+dlAnchorElem.setAttribute("download", "dogs.json");
 dlAnchorElem.click();
 ```
 
@@ -108,7 +108,7 @@ which basically grab `href` values from all "copy link" elements on the search
 results page, stream them to a JSON array and fill in a file for me to "download", "generating" is simply picking a random URL from the array.
 
 ```typescript
-import dogs from './dogs.json';
+import dogs from "./dogs.json";
 
 export function generate(): string {
   return dogs[Math.floor(Math.random() * dogs.length)];
@@ -121,12 +121,12 @@ I wrote a unit test for my doggo generator using jest (but actually mainly as an
 funny descriptions).
 
 ```ts
-import { generate } from '../../src/doggo/generator';
+import { generate } from "../../src/doggo/generator";
 
-describe('doggo generator', () => {
-  test('to return a good boy', () => {
+describe("doggo generator", () => {
+  test("to return a good boy", () => {
     Math.random = jest.fn().mockReturnValue(0);
-    const good = 'https://media3.giphy.com/media/mCRJDo24UvJMA/giphy.gif';
+    const good = "https://media3.giphy.com/media/mCRJDo24UvJMA/giphy.gif";
     const boy = generate();
     expect(boy).toBe(good);
   });
@@ -137,7 +137,7 @@ But the real test is a workflow using `action-dogs` itself (Yes, you can use
 a GitHub action on its own repo 🤯).
 
 ```yaml
-name: 'doggo'
+name: "doggo"
 
 on: pull_request
 
