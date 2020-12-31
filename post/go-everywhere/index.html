@@ -1,0 +1,358 @@
+<!doctype html><html lang=en-us><head><meta charset=utf-8><meta name=viewport content="width=device-width"><script type=application/javascript src=https://blog.stanleynguyen.me/js/theme-mode.js></script><link rel=stylesheet href=https://blog.stanleynguyen.me/css/frameworks.min.css><link rel=stylesheet href=https://blog.stanleynguyen.me/css/github.min.css><link rel=stylesheet href=https://blog.stanleynguyen.me/css/github-style.css><link rel=stylesheet href=https://blog.stanleynguyen.me/css/light.css><link rel=stylesheet href=https://blog.stanleynguyen.me/css/dark.css><link rel=stylesheet href=https://blog.stanleynguyen.me/css/syntax.css><title>Going Places: How I used Golang for literally every part of a system - Personal blog of Stanley Nguyen | software engineer & open-source enthusiast</title><link rel=icon type=image/x-icon href=https://blog.stanleynguyen.me/images/favicon.ico><meta name=theme-color content="#1e2327"><link rel=icon type=image/x-icon class=js-site-favicon href=https://blog.stanleynguyen.me/favicon.ico><meta name=monetization content="$ilp.uphold.com/X2qLwibKrnFM"><style>figure{margin:1em 40px;display:flex;flex-direction:column;align-items:center}figcaption{margin-top:10px}figcaption p{color:#6a737d}</style></head><body><div style=position:relative><header class="Header js-details-container Details px-3 px-md-4 px-lg-5 flex-wrap flex-md-nowrap open Details--on"><div class="Header-item mobile-none" style=margin-top:-4px;margin-bottom:-4px><a class=Header-link href=https://blog.stanleynguyen.me/><svg class="octicon" height="32" viewBox="0 0 16 16" width="32"><path fill-rule="evenodd" d="M8 0C3.58.0.0 3.58.0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38.0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95.0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12.0.0.67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15.0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48.0 1.07-.01 1.93-.01 2.2.0.21.15.46.55.38A8.013 8.013.0 0016 8c0-4.42-3.58-8-8-8z"/></svg></a></div><div class="Header-item d-md-none"><button class="Header-link btn-link js-details-target" type=button onclick="document.querySelector('#header-search').style.display=document.querySelector('#header-search').style.display=='none'?'block':'none'"><svg height="24" class="octicon octicon-three-bars" viewBox="0 0 16 16" width="24"><path fill-rule="evenodd" d="M1 2.75A.75.75.0 011.75 2h12.5a.75.75.0 110 1.5H1.75A.75.75.0 011 2.75zm0 5A.75.75.0 011.75 7h12.5a.75.75.0 110 1.5H1.75A.75.75.0 011 7.75zM1.75 12a.75.75.0 100 1.5h12.5a.75.75.0 100-1.5H1.75z"/></svg></button></div><div style=display:none id=header-search class="Header-item Header-item--full flex-column flex-md-row width-full flex-order-2 flex-md-order-none mr-0 mr-md-3 mt-3 mt-md-0 Details-content--hidden-not-important d-md-flex"><div class="Header-search header-search flex-auto js-site-search position-relative flex-self-stretch flex-md-self-auto mb-3 mb-md-0 mr-0 mr-md-3 scoped-search site-scoped-search js-jump-to"><div class=position-relative><form target=_blank action=https://www.google.com/search accept-charset=utf-8 method=get autocomplete=off><label class="Header-search-label form-control input-sm header-search-wrapper p-0 js-chromeless-input-container header-search-wrapper-jump-to position-relative d-flex flex-justify-between flex-items-center"><input type=text class="Header-search-input form-control input-sm header-search-input jump-to-field js-jump-to-field js-site-search-focus js-site-search-field is-clearable" name=q placeholder=Search autocomplete=off>
+<input type=hidden name=q value=site:https://blog.stanleynguyen.me/></label></form></div></div></div><div class="Header-item Header-item--full flex-justify-center d-md-none position-relative"><a class=Header-link href=https://blog.stanleynguyen.me/><svg class="octicon octicon-mark-github v-align-middle" height="32" viewBox="0 0 16 16" width="32"><path fill-rule="evenodd" d="M8 0C3.58.0.0 3.58.0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38.0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95.0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12.0.0.67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15.0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48.0 1.07-.01 1.93-.01 2.2.0.21.15.46.55.38A8.013 8.013.0 0016 8c0-4.42-3.58-8-8-8z"/></svg></a></div><div class=Header-item style=margin-right:0><a href=javascript:void(0) class="Header-link no-select" onclick=switchTheme()><svg style="fill:var(--color-profile-color-modes-toggle-moon)" class="no-select" viewBox="0 0 16 16" width="16" height="16"><path fill-rule="evenodd" clip-rule="evenodd" d="M4.52208 7.71754c3.05612.0 5.53362-2.47748 5.53362-5.5336C10.0557 1.93498 10.0392 1.68986 10.0074 1.44961 9.95801 1.07727 10.3495.771159 10.6474.99992 12.1153 2.12716 13.0615 3.89999 13.0615 5.89383 13.0615 9.29958 10.3006 12.0605 6.89485 12.0605c-2.94151.0-5.40199-2.0595-6.018122-4.81523C.794841 6.87902 1.23668 6.65289 1.55321 6.85451 2.41106 7.40095 3.4296 7.71754 4.52208 7.71754z"/></svg></a></div></header></div><div><main><div class="gisthead pagehead bg-gray-light pb-0 pt-3 mb-4"><div class=px-0><div class="mb-3 d-flex px-3 px-md-3 px-lg-5"><div class="flex-auto min-width-0 width-fit mr-3"><div class=d-flex><div class="d-none d-md-block"><a class="avatar mr-2 flex-shrink-0" href=https://blog.stanleynguyen.me/><img class=avatar-user src=https://unavatar.now.sh/github/stanleynguyen width=32 height=32></a></div><div class="d-flex flex-column"><h1 class="break-word f3 text-normal mb-md-0 mb-1"><span class=author><a href=https://blog.stanleynguyen.me/>Stanley Nguyen</a></span><span class=path-divider>/</span><strong class="css-truncate-target mr-1" style=max-width:410px><a href=https://blog.stanleynguyen.me/post/go-everywhere/>Going Places: How I used Golang for literally every part of a system</a></strong></h1><div class="note m-0">Created <relative-time datetime="Wed, 01 Jan 2020 00:00:00 +0800" class=no-wrap>Wed, 01 Jan 2020 00:00:00 +0800</relative-time></div></div></div></div></div></div></div><div class="container-lg px-3 new-discussion-timeline"><div class="repository-content gist-content"><div><div class="js-gist-file-update-container js-task-list-container file-box"><div id=file-pytest class="file my-2"><div class="file-header d-flex flex-md-items-center flex-items-start"><div class="file-info d-flex flex-md-items-center flex-items-start flex-order-1 flex-auto"><div class="text-mono f6 flex-auto pr-3 flex-order-2 flex-md-order-1 mt-2 mt-md-0">2041 Words</div><div class="file-actions flex-order-2 pt-0"></div></div></div><div class="Box-body px-5 pb-5"><article class="markdown-body entry-content container-lg"><p>Over the course of technology&rsquo;s esoteric rise, there&rsquo;re many languages that come and go.
+And just like for any products, only a few stood the test of time like C, Java - amassing large groups of followers with application in various domains.
+Naturally, fans of such languages would try to adapt their favorite tools to their various niched domains, which might not be the originally intended purpose of such languages.
+One notable effort was <a href=https://en.wikipedia.org/wiki/Write_once,_run_anywhere>Sun Microsystems&rsquo;</a> which ended up being at best the butt of Java Developers&rsquo; joke <code>Write Once, Debug Everywhere</code>, at worst the main source of pain for &ldquo;cross-platform&rdquo;-dubbed developers.</p><p>Ridiculous as it was, the attempt inspired me to attempt to do the same thing with one of developers&rsquo; community golden child that has been steadily rising in popularity over the last 10 years since its inception - Golang.
+If this post eventually contributes to another <code>WORA</code> wildfire (unintentionally of course 🤫 ), please do use this motto <code>GORA</code> - Go Once, Run Anywhere!</p><h2 id=the-big-picture>The Big Picture</h2><p>What I&rsquo;m trying to construct using Go is a simple IoT (Internet-of-Things) system which controls an LED light.
+The whole system can be summed up in a single diagram</p><p><img src=./img/diagram.png alt="System Diagram"></p><p>At the core of the system, we have a server (duh!) that persist the current desired state of the LED light (the &ldquo;backend&rdquo;).
+This state can be altered by the &ldquo;front-end&rdquo; clients - the browser app, the mobile app and the Mac 🍎 app, which are all written entirely in Go.
+On the other end of the system, I will be using a Raspberry Pi (RPi) to retrieve the LED light state from our server and pass it on to an Arduino controlling the LED light directly (This seems like a longer route but I didn&rsquo;t have a wifi shield for my Arduino 🤷 ).</p><p>All communications between components of this system are done through HTTP protocol, which allows me to have a &ldquo;WORA&rdquo; HTTP client component injected in different parts of the system to facilitate these calls.</p><h2 id=signal-server>Signal Server</h2><p>This is the brain of the system which persists and facilitates the trasmission of the LED light&rsquo;s states in the system.
+Interestingly, this is the only portion where Go is used for the purpose it&rsquo;s originally created for.</p><p>With Go, I can easily model lights as domain objects</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-golang data-lang=golang><span style=color:#66d9ef>type</span> <span style=color:#a6e22e>lightState</span> <span style=color:#66d9ef>int</span>
+
+<span style=color:#66d9ef>func</span> (<span style=color:#a6e22e>s</span> <span style=color:#a6e22e>lightState</span>) string() <span style=color:#66d9ef>string</span> {
+	<span style=color:#66d9ef>switch</span> <span style=color:#a6e22e>s</span> {
+	<span style=color:#66d9ef>case</span> <span style=color:#a6e22e>on</span>:
+		<span style=color:#66d9ef>return</span> <span style=color:#e6db74>&#34;ON&#34;</span>
+	<span style=color:#66d9ef>case</span> <span style=color:#a6e22e>off</span>:
+		<span style=color:#66d9ef>fallthrough</span>
+	<span style=color:#66d9ef>default</span>:
+		<span style=color:#66d9ef>return</span> <span style=color:#e6db74>&#34;OFF&#34;</span>
+	}
+}
+
+<span style=color:#66d9ef>const</span> (
+	<span style=color:#a6e22e>on</span> = <span style=color:#a6e22e>lightState</span>(<span style=color:#66d9ef>iota</span>)
+	<span style=color:#a6e22e>off</span>
+)
+
+<span style=color:#66d9ef>type</span> <span style=color:#a6e22e>light</span> <span style=color:#66d9ef>struct</span> {
+	<span style=color:#a6e22e>state</span> <span style=color:#a6e22e>lightState</span>
+	<span style=color:#a6e22e>mux</span>   <span style=color:#a6e22e>sync</span>.<span style=color:#a6e22e>Mutex</span>
+}
+
+<span style=color:#66d9ef>func</span> <span style=color:#a6e22e>newLight</span>() <span style=color:#a6e22e>light</span> {
+	<span style=color:#66d9ef>return</span> <span style=color:#a6e22e>light</span>{
+		<span style=color:#a6e22e>state</span>: <span style=color:#a6e22e>off</span>,
+	}
+}
+
+<span style=color:#66d9ef>func</span> (<span style=color:#a6e22e>l</span> <span style=color:#f92672>*</span><span style=color:#a6e22e>light</span>) <span style=color:#a6e22e>setState</span>(<span style=color:#a6e22e>s</span> <span style=color:#a6e22e>lightState</span>) {
+	<span style=color:#a6e22e>l</span>.<span style=color:#a6e22e>mux</span>.<span style=color:#a6e22e>Lock</span>()
+	<span style=color:#a6e22e>l</span>.<span style=color:#a6e22e>state</span> = <span style=color:#a6e22e>s</span>
+	<span style=color:#a6e22e>l</span>.<span style=color:#a6e22e>mux</span>.<span style=color:#a6e22e>Unlock</span>()
+}
+
+<span style=color:#66d9ef>func</span> (<span style=color:#a6e22e>l</span> <span style=color:#f92672>*</span><span style=color:#a6e22e>light</span>) <span style=color:#a6e22e>getState</span>() <span style=color:#a6e22e>lightState</span> {
+	<span style=color:#66d9ef>return</span> <span style=color:#a6e22e>l</span>.<span style=color:#a6e22e>state</span>
+}
+</code></pre></div><p>The light state control is then exposed through a set of endpoints to:</p><ul><li>Get the state <code>GET /led</code></li><li>Update it to ON <code>POST /on</code></li><li>Update it to OFF <code>POST /off</code></li></ul><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-go data-lang=go><span style=color:#a6e22e>http</span>.<span style=color:#a6e22e>HandleFunc</span>(<span style=color:#e6db74>&#34;/led&#34;</span>, <span style=color:#66d9ef>func</span>(<span style=color:#a6e22e>w</span> <span style=color:#a6e22e>http</span>.<span style=color:#a6e22e>ResponseWriter</span>, <span style=color:#a6e22e>r</span> <span style=color:#f92672>*</span><span style=color:#a6e22e>http</span>.<span style=color:#a6e22e>Request</span>) {
+  <span style=color:#66d9ef>if</span> <span style=color:#a6e22e>r</span>.<span style=color:#a6e22e>Method</span> <span style=color:#f92672>!=</span> <span style=color:#a6e22e>http</span>.<span style=color:#a6e22e>MethodGet</span> {
+    <span style=color:#a6e22e>w</span>.<span style=color:#a6e22e>WriteHeader</span>(<span style=color:#a6e22e>http</span>.<span style=color:#a6e22e>StatusForbidden</span>)
+    <span style=color:#a6e22e>fmt</span>.<span style=color:#a6e22e>Fprint</span>(<span style=color:#a6e22e>w</span>, <span style=color:#e6db74>&#34;Method not allowed&#34;</span>)
+    <span style=color:#66d9ef>return</span>
+  }
+
+  <span style=color:#a6e22e>w</span>.<span style=color:#a6e22e>WriteHeader</span>(<span style=color:#a6e22e>http</span>.<span style=color:#a6e22e>StatusOK</span>)
+  <span style=color:#a6e22e>fmt</span>.<span style=color:#a6e22e>Fprint</span>(<span style=color:#a6e22e>w</span>, <span style=color:#a6e22e>light</span>.<span style=color:#a6e22e>getState</span>().string())
+})
+<span style=color:#a6e22e>http</span>.<span style=color:#a6e22e>HandleFunc</span>(<span style=color:#e6db74>&#34;/on&#34;</span>, <span style=color:#66d9ef>func</span>(<span style=color:#a6e22e>w</span> <span style=color:#a6e22e>http</span>.<span style=color:#a6e22e>ResponseWriter</span>, <span style=color:#a6e22e>r</span> <span style=color:#f92672>*</span><span style=color:#a6e22e>http</span>.<span style=color:#a6e22e>Request</span>) {
+  <span style=color:#66d9ef>if</span> <span style=color:#a6e22e>r</span>.<span style=color:#a6e22e>Method</span> <span style=color:#f92672>!=</span> <span style=color:#a6e22e>http</span>.<span style=color:#a6e22e>MethodPost</span> {
+    <span style=color:#a6e22e>w</span>.<span style=color:#a6e22e>WriteHeader</span>(<span style=color:#a6e22e>http</span>.<span style=color:#a6e22e>StatusForbidden</span>)
+    <span style=color:#a6e22e>fmt</span>.<span style=color:#a6e22e>Fprint</span>(<span style=color:#a6e22e>w</span>, <span style=color:#e6db74>&#34;Method not allowed&#34;</span>)
+    <span style=color:#66d9ef>return</span>
+  }
+
+  <span style=color:#a6e22e>w</span>.<span style=color:#a6e22e>WriteHeader</span>(<span style=color:#a6e22e>http</span>.<span style=color:#a6e22e>StatusOK</span>)
+  <span style=color:#a6e22e>light</span>.<span style=color:#a6e22e>setState</span>(<span style=color:#a6e22e>on</span>)
+  <span style=color:#a6e22e>fmt</span>.<span style=color:#a6e22e>Fprint</span>(<span style=color:#a6e22e>w</span>, <span style=color:#e6db74>&#34;&#34;</span>)
+})
+<span style=color:#a6e22e>http</span>.<span style=color:#a6e22e>HandleFunc</span>(<span style=color:#e6db74>&#34;/off&#34;</span>, <span style=color:#66d9ef>func</span>(<span style=color:#a6e22e>w</span> <span style=color:#a6e22e>http</span>.<span style=color:#a6e22e>ResponseWriter</span>, <span style=color:#a6e22e>r</span> <span style=color:#f92672>*</span><span style=color:#a6e22e>http</span>.<span style=color:#a6e22e>Request</span>) {
+  <span style=color:#66d9ef>if</span> <span style=color:#a6e22e>r</span>.<span style=color:#a6e22e>Method</span> <span style=color:#f92672>!=</span> <span style=color:#a6e22e>http</span>.<span style=color:#a6e22e>MethodPost</span> {
+    <span style=color:#a6e22e>w</span>.<span style=color:#a6e22e>WriteHeader</span>(<span style=color:#a6e22e>http</span>.<span style=color:#a6e22e>StatusForbidden</span>)
+    <span style=color:#a6e22e>fmt</span>.<span style=color:#a6e22e>Fprint</span>(<span style=color:#a6e22e>w</span>, <span style=color:#e6db74>&#34;Method not allowed&#34;</span>)
+    <span style=color:#66d9ef>return</span>
+  }
+
+  <span style=color:#a6e22e>w</span>.<span style=color:#a6e22e>WriteHeader</span>(<span style=color:#a6e22e>http</span>.<span style=color:#a6e22e>StatusOK</span>)
+  <span style=color:#a6e22e>light</span>.<span style=color:#a6e22e>setState</span>(<span style=color:#a6e22e>off</span>)
+  <span style=color:#a6e22e>fmt</span>.<span style=color:#a6e22e>Fprint</span>(<span style=color:#a6e22e>w</span>, <span style=color:#e6db74>&#34;&#34;</span>)
+})
+</code></pre></div><p>With the signal in place for remotely controlling the light through HTTP requests, now we can come to the piece of the puzzle that will be extrapolated to be used in different platforms.</p><h2 id=the-lighthttpcli>The lighthttpcli</h2><p>The light controlling client is basically a http wrapper with self-explanatory methods.</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-go data-lang=go><span style=color:#66d9ef>const</span> (
+	<span style=color:#a6e22e>StateOn</span>  = <span style=color:#e6db74>&#34;ON&#34;</span>
+	<span style=color:#a6e22e>StateOff</span> = <span style=color:#e6db74>&#34;OFF&#34;</span>
+)
+
+<span style=color:#66d9ef>type</span> <span style=color:#a6e22e>LightHttpCli</span> <span style=color:#66d9ef>struct</span> {
+	<span style=color:#a6e22e>url</span>        <span style=color:#66d9ef>string</span>
+	<span style=color:#a6e22e>httpClient</span> <span style=color:#f92672>*</span><span style=color:#a6e22e>http</span>.<span style=color:#a6e22e>Client</span>
+}
+
+<span style=color:#66d9ef>func</span> (<span style=color:#a6e22e>c</span> <span style=color:#a6e22e>LightHttpCli</span>) <span style=color:#a6e22e>GetState</span>() (<span style=color:#66d9ef>string</span>, <span style=color:#66d9ef>error</span>) {
+	<span style=color:#a6e22e>endpoint</span> <span style=color:#f92672>:=</span> <span style=color:#a6e22e>fmt</span>.<span style=color:#a6e22e>Sprintf</span>(<span style=color:#e6db74>&#34;%s/led&#34;</span>, <span style=color:#a6e22e>c</span>.<span style=color:#a6e22e>url</span>)
+	<span style=color:#a6e22e>resp</span>, <span style=color:#a6e22e>err</span> <span style=color:#f92672>:=</span> <span style=color:#a6e22e>c</span>.<span style=color:#a6e22e>httpClient</span>.<span style=color:#a6e22e>Get</span>(<span style=color:#a6e22e>endpoint</span>)
+	<span style=color:#66d9ef>if</span> <span style=color:#a6e22e>err</span> <span style=color:#f92672>!=</span> <span style=color:#66d9ef>nil</span> {
+		<span style=color:#66d9ef>return</span> <span style=color:#e6db74>&#34;OFF&#34;</span>, <span style=color:#a6e22e>err</span>
+	}
+
+	<span style=color:#a6e22e>respByte</span>, <span style=color:#a6e22e>err</span> <span style=color:#f92672>:=</span> <span style=color:#a6e22e>ioutil</span>.<span style=color:#a6e22e>ReadAll</span>(<span style=color:#a6e22e>resp</span>.<span style=color:#a6e22e>Body</span>)
+	<span style=color:#66d9ef>if</span> <span style=color:#a6e22e>err</span> <span style=color:#f92672>!=</span> <span style=color:#66d9ef>nil</span> {
+		<span style=color:#66d9ef>return</span> <span style=color:#e6db74>&#34;OFF&#34;</span>, <span style=color:#a6e22e>err</span>
+	}
+	<span style=color:#66d9ef>defer</span> <span style=color:#a6e22e>resp</span>.<span style=color:#a6e22e>Body</span>.<span style=color:#a6e22e>Close</span>()
+
+	<span style=color:#66d9ef>if</span> <span style=color:#a6e22e>resp</span>.<span style=color:#a6e22e>StatusCode</span> <span style=color:#f92672>!=</span> <span style=color:#a6e22e>http</span>.<span style=color:#a6e22e>StatusOK</span> {
+		<span style=color:#66d9ef>return</span> <span style=color:#e6db74>&#34;OFF&#34;</span>, <span style=color:#a6e22e>errors</span>.<span style=color:#a6e22e>New</span>(string(<span style=color:#a6e22e>respByte</span>))
+	}
+
+	<span style=color:#66d9ef>return</span> string(<span style=color:#a6e22e>respByte</span>), <span style=color:#66d9ef>nil</span>
+}
+
+<span style=color:#66d9ef>func</span> (<span style=color:#a6e22e>c</span> <span style=color:#a6e22e>LightHttpCli</span>) <span style=color:#a6e22e>SetState</span>(<span style=color:#a6e22e>state</span> <span style=color:#66d9ef>string</span>) <span style=color:#66d9ef>error</span> {
+	<span style=color:#a6e22e>endpoint</span> <span style=color:#f92672>:=</span> <span style=color:#a6e22e>fmt</span>.<span style=color:#a6e22e>Sprintf</span>(<span style=color:#e6db74>&#34;%s/%s&#34;</span>, <span style=color:#a6e22e>c</span>.<span style=color:#a6e22e>url</span>, <span style=color:#a6e22e>strings</span>.<span style=color:#a6e22e>ToLower</span>(<span style=color:#a6e22e>state</span>))
+	<span style=color:#a6e22e>req</span>, <span style=color:#a6e22e>_</span> <span style=color:#f92672>:=</span> <span style=color:#a6e22e>http</span>.<span style=color:#a6e22e>NewRequest</span>(<span style=color:#a6e22e>http</span>.<span style=color:#a6e22e>MethodPost</span>, <span style=color:#a6e22e>endpoint</span>, <span style=color:#66d9ef>nil</span>)
+	<span style=color:#a6e22e>resp</span>, <span style=color:#a6e22e>err</span> <span style=color:#f92672>:=</span> <span style=color:#a6e22e>c</span>.<span style=color:#a6e22e>httpClient</span>.<span style=color:#a6e22e>Do</span>(<span style=color:#a6e22e>req</span>)
+	<span style=color:#66d9ef>if</span> <span style=color:#a6e22e>err</span> <span style=color:#f92672>!=</span> <span style=color:#66d9ef>nil</span> {
+		<span style=color:#66d9ef>return</span> <span style=color:#a6e22e>err</span>
+	}
+
+	<span style=color:#a6e22e>respByte</span>, <span style=color:#a6e22e>err</span> <span style=color:#f92672>:=</span> <span style=color:#a6e22e>ioutil</span>.<span style=color:#a6e22e>ReadAll</span>(<span style=color:#a6e22e>resp</span>.<span style=color:#a6e22e>Body</span>)
+	<span style=color:#66d9ef>if</span> <span style=color:#a6e22e>err</span> <span style=color:#f92672>!=</span> <span style=color:#66d9ef>nil</span> {
+		<span style=color:#66d9ef>return</span> <span style=color:#a6e22e>err</span>
+	}
+	<span style=color:#66d9ef>defer</span> <span style=color:#a6e22e>resp</span>.<span style=color:#a6e22e>Body</span>.<span style=color:#a6e22e>Close</span>()
+
+	<span style=color:#66d9ef>if</span> <span style=color:#a6e22e>resp</span>.<span style=color:#a6e22e>StatusCode</span> <span style=color:#f92672>!=</span> <span style=color:#a6e22e>http</span>.<span style=color:#a6e22e>StatusOK</span> {
+		<span style=color:#66d9ef>return</span> <span style=color:#a6e22e>errors</span>.<span style=color:#a6e22e>New</span>(string(<span style=color:#a6e22e>respByte</span>))
+	}
+
+	<span style=color:#66d9ef>return</span> <span style=color:#66d9ef>nil</span>
+}
+</code></pre></div><p>So how do we <code>extrapolate</code> this light controlling clients for all of the promised platforms: Web, Mobile, and Native Desktop?</p><h2 id=frontend-clients>Frontend Clients</h2><p>This is the interesting part where I&rsquo;m going to use Go on platforms that it&rsquo;s not supposed to be used on just because I can 🤷‍♂.</p><h3 id=go-in-browsers>Go in Browsers</h3><p>Let&rsquo;s start with something light-hearted which most of us might have at least heard about - WebAssembly.
+I won&rsquo;t go into nitty gritty details of WebAssembly in this post as we all have short attention spans, but basically we just have to write a simple Go script with a main function that will be compiled down to <a href=https://webassembly.org/>wasm</a> and executed with the help of GoWASM exec script. Read more about Go WebAssembly <a href=https://github.com/golang/go/wiki/WebAssembly>here</a>.</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-go data-lang=go><span style=color:#66d9ef>func</span> <span style=color:#a6e22e>getStateBtnHandlerFunc</span>(<span style=color:#a6e22e>state</span> <span style=color:#66d9ef>string</span>, <span style=color:#a6e22e>cli</span> <span style=color:#a6e22e>lighthttpcli</span>.<span style=color:#a6e22e>LightHttpCli</span>) <span style=color:#a6e22e>js</span>.<span style=color:#a6e22e>Func</span> {
+	<span style=color:#66d9ef>return</span> <span style=color:#a6e22e>js</span>.<span style=color:#a6e22e>FuncOf</span>(
+		<span style=color:#66d9ef>func</span>(<span style=color:#a6e22e>this</span> <span style=color:#a6e22e>js</span>.<span style=color:#a6e22e>Value</span>, <span style=color:#a6e22e>args</span> []<span style=color:#a6e22e>js</span>.<span style=color:#a6e22e>Value</span>) <span style=color:#66d9ef>interface</span>{} {
+			<span style=color:#66d9ef>go</span> <span style=color:#66d9ef>func</span>() {
+				<span style=color:#a6e22e>err</span> <span style=color:#f92672>:=</span> <span style=color:#a6e22e>cli</span>.<span style=color:#a6e22e>SetState</span>(<span style=color:#a6e22e>state</span>)
+				<span style=color:#66d9ef>if</span> <span style=color:#a6e22e>err</span> <span style=color:#f92672>!=</span> <span style=color:#66d9ef>nil</span> {
+					println(<span style=color:#a6e22e>err</span>.<span style=color:#a6e22e>Error</span>())
+				}
+			}()
+			<span style=color:#66d9ef>return</span> <span style=color:#66d9ef>nil</span>
+		},
+	)
+}
+
+<span style=color:#66d9ef>func</span> <span style=color:#a6e22e>getRefreshStateFunc</span>(<span style=color:#a6e22e>bulbElem</span> <span style=color:#a6e22e>js</span>.<span style=color:#a6e22e>Value</span>, <span style=color:#a6e22e>cli</span> <span style=color:#a6e22e>lighthttpcli</span>.<span style=color:#a6e22e>LightHttpCli</span>) <span style=color:#a6e22e>js</span>.<span style=color:#a6e22e>Func</span> {
+	<span style=color:#66d9ef>var</span> <span style=color:#a6e22e>prevState</span> <span style=color:#66d9ef>string</span>
+	<span style=color:#66d9ef>return</span> <span style=color:#a6e22e>js</span>.<span style=color:#a6e22e>FuncOf</span>(
+		<span style=color:#66d9ef>func</span>(<span style=color:#a6e22e>this</span> <span style=color:#a6e22e>js</span>.<span style=color:#a6e22e>Value</span>, <span style=color:#a6e22e>args</span> []<span style=color:#a6e22e>js</span>.<span style=color:#a6e22e>Value</span>) <span style=color:#66d9ef>interface</span>{} {
+			<span style=color:#66d9ef>go</span> <span style=color:#66d9ef>func</span>() {
+				<span style=color:#a6e22e>state</span>, <span style=color:#a6e22e>err</span> <span style=color:#f92672>:=</span> <span style=color:#a6e22e>cli</span>.<span style=color:#a6e22e>GetState</span>()
+				<span style=color:#66d9ef>if</span> <span style=color:#a6e22e>err</span> <span style=color:#f92672>!=</span> <span style=color:#66d9ef>nil</span> {
+					println(<span style=color:#a6e22e>err</span>.<span style=color:#a6e22e>Error</span>())
+				}
+
+				<span style=color:#66d9ef>if</span> <span style=color:#a6e22e>state</span> <span style=color:#f92672>!=</span> <span style=color:#a6e22e>prevState</span> {
+					<span style=color:#66d9ef>if</span> <span style=color:#a6e22e>state</span> <span style=color:#f92672>==</span> <span style=color:#a6e22e>lighthttpcli</span>.<span style=color:#a6e22e>StateOn</span> {
+						<span style=color:#a6e22e>bulbElem</span>.<span style=color:#a6e22e>Get</span>(<span style=color:#e6db74>&#34;classList&#34;</span>).<span style=color:#a6e22e>Call</span>(<span style=color:#e6db74>&#34;add&#34;</span>, <span style=color:#e6db74>&#34;on&#34;</span>)
+					} <span style=color:#66d9ef>else</span> {
+						<span style=color:#a6e22e>bulbElem</span>.<span style=color:#a6e22e>Get</span>(<span style=color:#e6db74>&#34;classList&#34;</span>).<span style=color:#a6e22e>Call</span>(<span style=color:#e6db74>&#34;remove&#34;</span>, <span style=color:#e6db74>&#34;on&#34;</span>)
+					}
+					<span style=color:#a6e22e>prevState</span> = <span style=color:#a6e22e>state</span>
+				}
+			}()
+			<span style=color:#66d9ef>return</span> <span style=color:#66d9ef>nil</span>
+		},
+	)
+}
+
+<span style=color:#66d9ef>func</span> <span style=color:#a6e22e>setup</span>() {
+	<span style=color:#a6e22e>cli</span> <span style=color:#f92672>:=</span> <span style=color:#a6e22e>lighthttpcli</span>.<span style=color:#a6e22e>NewCli</span>(<span style=color:#a6e22e>js</span>.<span style=color:#a6e22e>Global</span>().<span style=color:#a6e22e>Get</span>(<span style=color:#e6db74>&#34;location&#34;</span>).<span style=color:#a6e22e>Get</span>(<span style=color:#e6db74>&#34;origin&#34;</span>).<span style=color:#a6e22e>String</span>())
+	<span style=color:#a6e22e>bulbElem</span> <span style=color:#f92672>:=</span> <span style=color:#a6e22e>js</span>.<span style=color:#a6e22e>Global</span>().<span style=color:#a6e22e>Get</span>(<span style=color:#e6db74>&#34;document&#34;</span>).<span style=color:#a6e22e>Call</span>(<span style=color:#e6db74>&#34;getElementById&#34;</span>, <span style=color:#e6db74>&#34;bulb&#34;</span>)
+
+	<span style=color:#a6e22e>js</span>.<span style=color:#a6e22e>Global</span>().<span style=color:#a6e22e>Set</span>(<span style=color:#e6db74>&#34;turnOn&#34;</span>, <span style=color:#a6e22e>getStateBtnHandlerFunc</span>(<span style=color:#a6e22e>lighthttpcli</span>.<span style=color:#a6e22e>StateOn</span>, <span style=color:#a6e22e>cli</span>))
+	<span style=color:#a6e22e>js</span>.<span style=color:#a6e22e>Global</span>().<span style=color:#a6e22e>Set</span>(<span style=color:#e6db74>&#34;turnOff&#34;</span>, <span style=color:#a6e22e>getStateBtnHandlerFunc</span>(<span style=color:#a6e22e>lighthttpcli</span>.<span style=color:#a6e22e>StateOff</span>, <span style=color:#a6e22e>cli</span>))
+	<span style=color:#a6e22e>js</span>.<span style=color:#a6e22e>Global</span>().<span style=color:#a6e22e>Call</span>(<span style=color:#e6db74>&#34;setInterval&#34;</span>, <span style=color:#a6e22e>getRefreshStateFunc</span>(<span style=color:#a6e22e>bulbElem</span>, <span style=color:#a6e22e>cli</span>), <span style=color:#ae81ff>500</span>)
+}
+
+<span style=color:#66d9ef>func</span> <span style=color:#a6e22e>main</span>() {
+	<span style=color:#a6e22e>c</span> <span style=color:#f92672>:=</span> make(<span style=color:#66d9ef>chan</span> <span style=color:#66d9ef>struct</span>{}, <span style=color:#ae81ff>0</span>)
+	<span style=color:#a6e22e>setup</span>()
+	println(<span style=color:#e6db74>&#34;WASM Go initialized&#34;</span>)
+	<span style=color:#f92672>&lt;-</span><span style=color:#a6e22e>c</span>
+}
+</code></pre></div><p>The above Go script can then be compiled, conveniently with an in-built Go compiler&rsquo;s feature, into a WebAssembly &ldquo;binary&rdquo;.</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>GOARCH<span style=color:#f92672>=</span>wasm GOOS<span style=color:#f92672>=</span>js go build -o static/main.wasm wasm/main.go
+</code></pre></div><p>The result &ldquo;binary&rdquo; will bind instructions into the corresponding function names in the browser&rsquo;s JavaScript space after its initilisation in JS.</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-html data-lang=html>&lt;<span style=color:#f92672>script</span> <span style=color:#a6e22e>src</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;wasm_exec.js&#34;</span>&gt;&lt;/<span style=color:#f92672>script</span>&gt;
+&lt;<span style=color:#f92672>script</span>&gt;
+  <span style=color:#66d9ef>const</span> <span style=color:#a6e22e>go</span> <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> <span style=color:#a6e22e>Go</span>();
+  <span style=color:#66d9ef>let</span> <span style=color:#a6e22e>mod</span>, <span style=color:#a6e22e>inst</span>;
+  <span style=color:#a6e22e>WebAssembly</span>.<span style=color:#a6e22e>instantiateStreaming</span>(<span style=color:#a6e22e>fetch</span>(<span style=color:#e6db74>&#34;main.wasm&#34;</span>), <span style=color:#a6e22e>go</span>.<span style=color:#a6e22e>importObject</span>).<span style=color:#a6e22e>then</span>(
+    <span style=color:#a6e22e>async</span> (<span style=color:#a6e22e>result</span>) =&gt; {
+      <span style=color:#a6e22e>mod</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>result</span>.<span style=color:#a6e22e>module</span>;
+      <span style=color:#a6e22e>inst</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>result</span>.<span style=color:#a6e22e>instance</span>;
+      <span style=color:#a6e22e>await</span> <span style=color:#a6e22e>go</span>.<span style=color:#a6e22e>run</span>(<span style=color:#a6e22e>inst</span>);
+    }
+  );
+&lt;/<span style=color:#f92672>script</span>&gt;
+</code></pre></div><h3 id=go-on-native-desktop>Go on Native Desktop</h3><p>To keep the project simple, I decided to just make an Mac status bar application rather than full-fledged UI application.
+For this task, conveniently, there&rsquo;s already a popular package <a href=https://github.com/caseymrm/menuet>caseymrm/menuet</a>.
+I only have to define my status bar app as below and bind the different functions of <code>lighthttpcli</code> to UI interactions.</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-go data-lang=go><span style=color:#66d9ef>var</span> <span style=color:#a6e22e>cli</span> = <span style=color:#a6e22e>lighthttpcli</span>.<span style=color:#a6e22e>NewCli</span>(<span style=color:#a6e22e>serverURL</span>)
+
+<span style=color:#66d9ef>func</span> <span style=color:#a6e22e>intervalStateRefresh</span>() {
+	<span style=color:#a6e22e>ticker</span> <span style=color:#f92672>:=</span> <span style=color:#a6e22e>time</span>.<span style=color:#a6e22e>NewTicker</span>(<span style=color:#ae81ff>500</span> <span style=color:#f92672>*</span> <span style=color:#a6e22e>time</span>.<span style=color:#a6e22e>Millisecond</span>)
+	<span style=color:#66d9ef>var</span> <span style=color:#a6e22e>prevState</span> <span style=color:#66d9ef>string</span>
+	<span style=color:#66d9ef>for</span> {
+		<span style=color:#f92672>&lt;-</span><span style=color:#a6e22e>ticker</span>.<span style=color:#a6e22e>C</span>
+		<span style=color:#a6e22e>state</span>, <span style=color:#a6e22e>_</span> <span style=color:#f92672>:=</span> <span style=color:#a6e22e>cli</span>.<span style=color:#a6e22e>GetState</span>()
+		<span style=color:#66d9ef>if</span> <span style=color:#a6e22e>state</span> <span style=color:#f92672>!=</span> <span style=color:#a6e22e>prevState</span> {
+			<span style=color:#a6e22e>menuet</span>.<span style=color:#a6e22e>App</span>().<span style=color:#a6e22e>SetMenuState</span>(<span style=color:#f92672>&amp;</span><span style=color:#a6e22e>menuet</span>.<span style=color:#a6e22e>MenuState</span>{
+				<span style=color:#a6e22e>Title</span>: <span style=color:#a6e22e>fmt</span>.<span style=color:#a6e22e>Sprintf</span>(<span style=color:#e6db74>&#34;Light is: %s&#34;</span>, <span style=color:#a6e22e>state</span>),
+			})
+			<span style=color:#a6e22e>prevState</span> = <span style=color:#a6e22e>state</span>
+		}
+	}
+}
+
+<span style=color:#66d9ef>func</span> <span style=color:#a6e22e>menuItems</span>() []<span style=color:#a6e22e>menuet</span>.<span style=color:#a6e22e>MenuItem</span> {
+	<span style=color:#a6e22e>onBtn</span> <span style=color:#f92672>:=</span> <span style=color:#a6e22e>menuet</span>.<span style=color:#a6e22e>MenuItem</span>{
+		<span style=color:#a6e22e>Text</span>: <span style=color:#e6db74>&#34;Turn On&#34;</span>,
+		<span style=color:#a6e22e>Clicked</span>: <span style=color:#66d9ef>func</span>() {
+			<span style=color:#a6e22e>cli</span>.<span style=color:#a6e22e>SetState</span>(<span style=color:#a6e22e>lighthttpcli</span>.<span style=color:#a6e22e>StateOn</span>)
+		},
+	}
+	<span style=color:#a6e22e>offBtn</span> <span style=color:#f92672>:=</span> <span style=color:#a6e22e>menuet</span>.<span style=color:#a6e22e>MenuItem</span>{
+		<span style=color:#a6e22e>Text</span>: <span style=color:#e6db74>&#34;Turn Off&#34;</span>,
+		<span style=color:#a6e22e>Clicked</span>: <span style=color:#66d9ef>func</span>() {
+			<span style=color:#a6e22e>cli</span>.<span style=color:#a6e22e>SetState</span>(<span style=color:#a6e22e>lighthttpcli</span>.<span style=color:#a6e22e>StateOff</span>)
+		},
+	}
+	<span style=color:#66d9ef>return</span> []<span style=color:#a6e22e>menuet</span>.<span style=color:#a6e22e>MenuItem</span>{<span style=color:#a6e22e>onBtn</span>, <span style=color:#a6e22e>offBtn</span>}
+}
+
+<span style=color:#66d9ef>func</span> <span style=color:#a6e22e>main</span>() {
+	<span style=color:#66d9ef>go</span> <span style=color:#a6e22e>intervalStateRefresh</span>()
+	<span style=color:#a6e22e>menuet</span>.<span style=color:#a6e22e>App</span>().<span style=color:#a6e22e>Label</span> = <span style=color:#e6db74>&#34;com.github.stanleynguyen.goeverywhere&#34;</span>
+	<span style=color:#a6e22e>menuet</span>.<span style=color:#a6e22e>App</span>().<span style=color:#a6e22e>Children</span> = <span style=color:#a6e22e>menuItems</span>
+	<span style=color:#a6e22e>menuet</span>.<span style=color:#a6e22e>App</span>().<span style=color:#a6e22e>RunApplication</span>()
+}
+</code></pre></div><h3 id=go-on-mobile>Go on Mobile</h3><p>This part is one that I struggled the most with as the <a href=https://github.com/golang/mobile>gomobile package</a> is unstable and also lacks documentation and guides (as we all could have guessed that it&rsquo;s rarely used in a practical sense).</p><p>Creating the app is relatively straight-forward as I went with a full-screen setup that indicates the light&rsquo;s state by its background color and toggles the state upon any touch events.</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-go data-lang=go><span style=color:#66d9ef>func</span> <span style=color:#a6e22e>main</span>() {
+	<span style=color:#a6e22e>stateChan</span> <span style=color:#f92672>:=</span> make(<span style=color:#66d9ef>chan</span> <span style=color:#66d9ef>string</span>)
+	<span style=color:#66d9ef>go</span> <span style=color:#a6e22e>checkState</span>(<span style=color:#a6e22e>stateChan</span>)
+	<span style=color:#a6e22e>app</span>.<span style=color:#a6e22e>Main</span>(<span style=color:#66d9ef>func</span>(<span style=color:#a6e22e>a</span> <span style=color:#a6e22e>app</span>.<span style=color:#a6e22e>App</span>) {
+		<span style=color:#66d9ef>var</span> <span style=color:#a6e22e>glctx</span> <span style=color:#a6e22e>gl</span>.<span style=color:#a6e22e>Context</span>
+		<span style=color:#a6e22e>state</span> <span style=color:#f92672>:=</span> <span style=color:#e6db74>&#34;OFF&#34;</span>
+		<span style=color:#66d9ef>for</span> {
+			<span style=color:#66d9ef>select</span> {
+			<span style=color:#66d9ef>case</span> <span style=color:#a6e22e>state</span> = <span style=color:#f92672>&lt;-</span><span style=color:#a6e22e>stateChan</span>:
+				<span style=color:#a6e22e>a</span>.<span style=color:#a6e22e>Send</span>(<span style=color:#a6e22e>paint</span>.<span style=color:#a6e22e>Event</span>{})
+			<span style=color:#66d9ef>case</span> <span style=color:#a6e22e>e</span> <span style=color:#f92672>:=</span> <span style=color:#f92672>&lt;-</span><span style=color:#a6e22e>a</span>.<span style=color:#a6e22e>Events</span>():
+				<span style=color:#66d9ef>switch</span> <span style=color:#a6e22e>e</span> <span style=color:#f92672>:=</span> <span style=color:#a6e22e>a</span>.<span style=color:#a6e22e>Filter</span>(<span style=color:#a6e22e>e</span>).(<span style=color:#66d9ef>type</span>) {
+				<span style=color:#66d9ef>case</span> <span style=color:#a6e22e>lifecycle</span>.<span style=color:#a6e22e>Event</span>:
+					<span style=color:#a6e22e>glctx</span>, <span style=color:#a6e22e>_</span> = <span style=color:#a6e22e>e</span>.<span style=color:#a6e22e>DrawContext</span>.(<span style=color:#a6e22e>gl</span>.<span style=color:#a6e22e>Context</span>)
+				<span style=color:#66d9ef>case</span> <span style=color:#a6e22e>paint</span>.<span style=color:#a6e22e>Event</span>:
+					<span style=color:#66d9ef>if</span> <span style=color:#a6e22e>glctx</span> <span style=color:#f92672>==</span> <span style=color:#66d9ef>nil</span> {
+						<span style=color:#66d9ef>continue</span>
+					}
+					<span style=color:#66d9ef>if</span> <span style=color:#a6e22e>state</span> <span style=color:#f92672>==</span> <span style=color:#e6db74>&#34;ON&#34;</span> {
+						<span style=color:#a6e22e>glctx</span>.<span style=color:#a6e22e>ClearColor</span>(<span style=color:#ae81ff>1</span>, <span style=color:#ae81ff>1</span>, <span style=color:#ae81ff>0</span>, <span style=color:#ae81ff>1</span>)
+					} <span style=color:#66d9ef>else</span> {
+						<span style=color:#a6e22e>glctx</span>.<span style=color:#a6e22e>ClearColor</span>(<span style=color:#ae81ff>0</span>, <span style=color:#ae81ff>0</span>, <span style=color:#ae81ff>0</span>, <span style=color:#ae81ff>1</span>)
+					}
+					<span style=color:#a6e22e>glctx</span>.<span style=color:#a6e22e>Clear</span>(<span style=color:#a6e22e>gl</span>.<span style=color:#a6e22e>COLOR_BUFFER_BIT</span>)
+					<span style=color:#a6e22e>a</span>.<span style=color:#a6e22e>Publish</span>()
+				<span style=color:#66d9ef>case</span> <span style=color:#a6e22e>touch</span>.<span style=color:#a6e22e>Event</span>:
+					<span style=color:#66d9ef>if</span> <span style=color:#a6e22e>state</span> <span style=color:#f92672>==</span> <span style=color:#e6db74>&#34;ON&#34;</span> {
+						<span style=color:#a6e22e>lightHTTPCli</span>.<span style=color:#a6e22e>SetState</span>(<span style=color:#e6db74>&#34;OFF&#34;</span>)
+					} <span style=color:#66d9ef>else</span> {
+						<span style=color:#a6e22e>lightHTTPCli</span>.<span style=color:#a6e22e>SetState</span>(<span style=color:#e6db74>&#34;ON&#34;</span>)
+					}
+				}
+			}
+		}
+	})
+}
+</code></pre></div><p>To install on Android devices, this Go program can then be compiled into an apk with the help of <a href=https://github.com/golang/mobile>gomobile</a> with the <a href=https://developer.android.com/ndk/downloads>ndk-bundle</a> in the same folder.</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>ANDROID_HOME<span style=color:#f92672>=</span><span style=color:#66d9ef>$(</span>pwd<span style=color:#66d9ef>)</span> gomobile build -ldflags <span style=color:#e6db74>&#34;-X main.serverURL=&lt;your server url&gt;&#34;</span> -o light.apk github.com/stanleynguyen/go-everywhere/mobo
+</code></pre></div><h2 id=edge-node>Edge Node</h2><p>Now that we have settled all of our &ldquo;frontend&rdquo; clients, it&rsquo;s time to translate the software signal into some actual hardware and light up some LEDs!</p><h3 id=raspberry-pi->Raspberry Pi 🥧</h3><p>As you&rsquo;re reading this, you might be wondering why didn&rsquo;t we just let the Arduino controller get the light state directly and control the LED.
+The main reason behind the decision was because I didn&rsquo;t have an internet shield for my Arduino but hey, what&rsquo;s the harm in tallying up my platform count by a point 🤷‍♂️?</p><p>For the RPi to be the desired &ldquo;middle-person&rdquo; controller, we simply need it to poll for the light state and pass the signal onto an output pin.</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-go data-lang=go><span style=color:#66d9ef>var</span> <span style=color:#a6e22e>serverURL</span> = <span style=color:#e6db74>&#34;http://localhost:8080&#34;</span> <span style=color:#75715e>// Inject at build time with -ldflags &#34;-X main.serverURL=http://something&#34;
+</span><span style=color:#75715e></span><span style=color:#66d9ef>var</span> <span style=color:#a6e22e>pinNumberStr</span> = <span style=color:#e6db74>&#34;16&#34;</span>                 <span style=color:#75715e>// Inject at build time with -ldflags &#34;-X main.pinNumber=21&#34;
+</span><span style=color:#75715e></span>
+<span style=color:#66d9ef>var</span> <span style=color:#a6e22e>cli</span> = <span style=color:#a6e22e>lighthttpcli</span>.<span style=color:#a6e22e>NewCli</span>(<span style=color:#a6e22e>serverURL</span>)
+
+<span style=color:#66d9ef>func</span> <span style=color:#a6e22e>main</span>() {
+	<span style=color:#66d9ef>if</span> <span style=color:#a6e22e>err</span> <span style=color:#f92672>:=</span> <span style=color:#a6e22e>rpio</span>.<span style=color:#a6e22e>Open</span>(); <span style=color:#a6e22e>err</span> <span style=color:#f92672>!=</span> <span style=color:#66d9ef>nil</span> {
+		<span style=color:#a6e22e>log</span>.<span style=color:#a6e22e>Fatal</span>(<span style=color:#a6e22e>err</span>)
+		<span style=color:#a6e22e>os</span>.<span style=color:#a6e22e>Exit</span>(<span style=color:#ae81ff>1</span>)
+	}
+	<span style=color:#66d9ef>defer</span> <span style=color:#a6e22e>rpio</span>.<span style=color:#a6e22e>Close</span>()
+	<span style=color:#a6e22e>pinNumber</span>, <span style=color:#a6e22e>_</span> <span style=color:#f92672>:=</span> <span style=color:#a6e22e>strconv</span>.<span style=color:#a6e22e>Atoi</span>(<span style=color:#a6e22e>pinNumberStr</span>)
+	<span style=color:#a6e22e>pin</span> <span style=color:#f92672>:=</span> <span style=color:#a6e22e>rpio</span>.<span style=color:#a6e22e>Pin</span>(<span style=color:#a6e22e>pinNumber</span>)
+	<span style=color:#a6e22e>pin</span>.<span style=color:#a6e22e>Output</span>()
+	<span style=color:#a6e22e>stateChan</span> <span style=color:#f92672>:=</span> make(<span style=color:#66d9ef>chan</span> <span style=color:#66d9ef>string</span>)
+	<span style=color:#66d9ef>go</span> <span style=color:#a6e22e>pollLightState</span>(<span style=color:#a6e22e>stateChan</span>)
+	<span style=color:#a6e22e>prevState</span> <span style=color:#f92672>:=</span> <span style=color:#e6db74>&#34;OFF&#34;</span>
+	<span style=color:#a6e22e>pin</span>.<span style=color:#a6e22e>Low</span>()
+	<span style=color:#66d9ef>for</span> {
+		<span style=color:#a6e22e>state</span> <span style=color:#f92672>:=</span> <span style=color:#f92672>&lt;-</span><span style=color:#a6e22e>stateChan</span>
+		<span style=color:#66d9ef>if</span> <span style=color:#a6e22e>state</span> <span style=color:#f92672>!=</span> <span style=color:#a6e22e>prevState</span> {
+			<span style=color:#66d9ef>if</span> <span style=color:#a6e22e>state</span> <span style=color:#f92672>==</span> <span style=color:#e6db74>&#34;ON&#34;</span> {
+				<span style=color:#a6e22e>pin</span>.<span style=color:#a6e22e>High</span>()
+			} <span style=color:#66d9ef>else</span> {
+				<span style=color:#a6e22e>pin</span>.<span style=color:#a6e22e>Low</span>()
+			}
+			<span style=color:#a6e22e>prevState</span> = <span style=color:#a6e22e>state</span>
+		}
+	}
+}
+
+<span style=color:#66d9ef>func</span> <span style=color:#a6e22e>pollLightState</span>(<span style=color:#a6e22e>stateChan</span> <span style=color:#66d9ef>chan</span><span style=color:#f92672>&lt;-</span> <span style=color:#66d9ef>string</span>) {
+	<span style=color:#66d9ef>for</span> {
+		<span style=color:#a6e22e>state</span>, <span style=color:#a6e22e>_</span> <span style=color:#f92672>:=</span> <span style=color:#a6e22e>cli</span>.<span style=color:#a6e22e>GetState</span>()
+		<span style=color:#a6e22e>stateChan</span> <span style=color:#f92672>&lt;-</span> <span style=color:#a6e22e>state</span>
+		<span style=color:#a6e22e>time</span>.<span style=color:#a6e22e>Sleep</span>(<span style=color:#ae81ff>500</span> <span style=color:#f92672>*</span> <span style=color:#a6e22e>time</span>.<span style=color:#a6e22e>Millisecond</span>)
+	}
+}
+</code></pre></div><p>And thanks to Go&rsquo;s build system&rsquo;s versatility, I can easily compile a binary that can be run on RPi <strong>on my Macbook</strong> by setting some simple flags.</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>GOOS<span style=color:#f92672>=</span>linux GOARCH<span style=color:#f92672>=</span>arm GOARM<span style=color:#f92672>=</span><span style=color:#ae81ff>5</span> go build -o pi.out -ldflags <span style=color:#e6db74>&#34;-X main.serverURL=&lt;your server url&gt; -X main.pinNumber=&lt;output pin number&gt;&#34;</span> pi/main.go
+</code></pre></div><h3 id=arduino>Arduino</h3><p>So finally, we have come to the last piece of the puzzle.
+The Arduino only has a simple job of reading from an input pin that receive signals from the RPi and output to a pin that will complete the circuit and light up the LED 💡.</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-go data-lang=go><span style=color:#f92672>package</span> <span style=color:#a6e22e>main</span>
+
+<span style=color:#f92672>import</span> (
+	<span style=color:#e6db74>&#34;machine&#34;</span>
+	<span style=color:#e6db74>&#34;strconv&#34;</span>
+	<span style=color:#e6db74>&#34;time&#34;</span>
+)
+
+<span style=color:#66d9ef>var</span> <span style=color:#a6e22e>outPinStr</span> = <span style=color:#e6db74>&#34;9&#34;</span> <span style=color:#75715e>// Inject at build time with -ldflags &#34;-X main.outPinStr=9&#34;
+</span><span style=color:#75715e></span><span style=color:#66d9ef>var</span> <span style=color:#a6e22e>inPinStr</span> = <span style=color:#e6db74>&#34;7&#34;</span>  <span style=color:#75715e>// Inject at build time with -ldflags &#34;-X main.outPinStr=7&#34;
+</span><span style=color:#75715e></span>
+<span style=color:#66d9ef>func</span> <span style=color:#a6e22e>main</span>() {
+	<span style=color:#a6e22e>outPinNumber</span>, <span style=color:#a6e22e>_</span> <span style=color:#f92672>:=</span> <span style=color:#a6e22e>strconv</span>.<span style=color:#a6e22e>Atoi</span>(<span style=color:#a6e22e>outPinStr</span>)
+	<span style=color:#a6e22e>inPinNumber</span>, <span style=color:#a6e22e>_</span> <span style=color:#f92672>:=</span> <span style=color:#a6e22e>strconv</span>.<span style=color:#a6e22e>Atoi</span>(<span style=color:#a6e22e>inPinStr</span>)
+	<span style=color:#66d9ef>var</span> <span style=color:#a6e22e>outPin</span> <span style=color:#a6e22e>machine</span>.<span style=color:#a6e22e>Pin</span> = <span style=color:#a6e22e>machine</span>.<span style=color:#a6e22e>Pin</span>(<span style=color:#a6e22e>outPinNumber</span>)
+	<span style=color:#66d9ef>var</span> <span style=color:#a6e22e>inPin</span> <span style=color:#a6e22e>machine</span>.<span style=color:#a6e22e>Pin</span> = <span style=color:#a6e22e>machine</span>.<span style=color:#a6e22e>Pin</span>(<span style=color:#a6e22e>inPinNumber</span>)
+	<span style=color:#a6e22e>outPin</span>.<span style=color:#a6e22e>Configure</span>(<span style=color:#a6e22e>machine</span>.<span style=color:#a6e22e>PinConfig</span>{<span style=color:#a6e22e>Mode</span>: <span style=color:#a6e22e>machine</span>.<span style=color:#a6e22e>PinOutput</span>})
+	<span style=color:#a6e22e>inPin</span>.<span style=color:#a6e22e>Configure</span>(<span style=color:#a6e22e>machine</span>.<span style=color:#a6e22e>PinConfig</span>{<span style=color:#a6e22e>Mode</span>: <span style=color:#a6e22e>machine</span>.<span style=color:#a6e22e>PinInput</span>})
+	<span style=color:#66d9ef>for</span> {
+		<span style=color:#a6e22e>outPin</span>.<span style=color:#a6e22e>Set</span>(<span style=color:#a6e22e>inPin</span>.<span style=color:#a6e22e>Get</span>())
+		<span style=color:#a6e22e>time</span>.<span style=color:#a6e22e>Sleep</span>(<span style=color:#a6e22e>time</span>.<span style=color:#a6e22e>Millisecond</span> <span style=color:#f92672>*</span> <span style=color:#ae81ff>200</span>)
+	}
+}
+</code></pre></div><p>The special part about this code is the <code>machine</code> package that&rsquo;s not a built-in but provided within the build environment of <a href=https://github.com/tinygo-org/tinygo>tinygo</a>.
+All the heavy-lifting of flasing into our micro-controllers is done by <a href=https://github.com/tinygo-org/tinygo>tinygo</a> as well, making it a piece of cake 🍰 to work with micro-controllers.</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>tinygo flash -target arduino uno/main.go
+</code></pre></div><h2 id=system-in-action>System in Action</h2><p>Now it&rsquo;s time for some unveiling and see the system in action 🤩</p><div style=position:relative;padding-bottom:56.25%;height:0;overflow:hidden><iframe src=https://www.youtube.com/embed/TtHGwHxKqzk style=position:absolute;top:0;left:0;width:100%;height:100%;border:0 allowfullscreen title="YouTube Video"></iframe></div><p>The complete source code can be found in <a href=https://github.com/stanleynguyen/go-everywhere>this repo</a>.</p><h2 id=famous-last-words>Famous Last Words</h2><p>Just because we can doesn&rsquo;t mean we should.
+Go becoming widely adopted and Gophers are going places but that doesn&rsquo;t mean Go should be used in every single possible place.
+If there&rsquo;s any lessons that we could learn from Sun&rsquo;s WORE being the programmer&rsquo;s butt of joke, it&rsquo;s to use the right tool for the right job.</p><h2 id=bonus-turning-web-assets-into-go>Bonus: Turning Web Assets into Go</h2><p>Aren&rsquo;t our web assets part of the system as well?
+So to make it completely <code>Go</code>, we&rsquo;ve gotta some how make them part of the Go code.
+The most obvious choice for that is to turn them into binaries and embed right inside our backend code.
+This task is relatively simple with a wide range of tools to choose from.
+For this project, I went with <a href=https://github.com/rakyll/statik>statik</a>, and simply generate the embeddings with this command.</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>statik -src static/ -include<span style=color:#f92672>=</span>*.html,*.css,*.js,*.wasm
+</code></pre></div><p>These embeddings can be used just like a normal file system in my backend code.</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-go data-lang=go><span style=color:#f92672>import</span> (
+  <span style=color:#e6db74>&#34;github.com/rakyll/statik/fs&#34;</span>
+	<span style=color:#a6e22e>_</span> <span style=color:#e6db74>&#34;github.com/stanleynguyen/go-everywhere/statik&#34;</span>
+)
+<span style=color:#f92672>...</span>
+  <span style=color:#75715e>// serve static site
+</span><span style=color:#75715e></span>	<span style=color:#a6e22e>statikFS</span>, <span style=color:#a6e22e>err</span> <span style=color:#f92672>:=</span> <span style=color:#a6e22e>fs</span>.<span style=color:#a6e22e>New</span>()
+	<span style=color:#a6e22e>fileSys</span> <span style=color:#f92672>:=</span> <span style=color:#a6e22e>http</span>.<span style=color:#a6e22e>FileServer</span>(<span style=color:#a6e22e>statikFS</span>)
+  <span style=color:#a6e22e>http</span>.<span style=color:#a6e22e>Handle</span>(<span style=color:#e6db74>&#34;/&#34;</span>, <span style=color:#a6e22e>fileSys</span>)
+<span style=color:#f92672>...</span>
+</code></pre></div></article></div></div></div></div></div></div></main></div><div class="footer container-xl width-full p-responsive"><div class="position-relative d-flex flex-row-reverse flex-lg-row flex-wrap flex-lg-nowrap flex-justify-center flex-lg-justify-between flex-sm-items-center pt-6 pb-2 mt-6 f6 text-gray border-top border-gray-light"><a aria-label=Homepage title=GitHub class="footer-octicon d-none d-lg-block mr-lg-4" href=https://blog.stanleynguyen.me/><svg height="24" class="octicon octicon-mark-github" viewBox="0 0 16 16" width="24"><path fill-rule="evenodd" d="M8 0C3.58.0.0 3.58.0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38.0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95.0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12.0.0.67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15.0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48.0 1.07-.01 1.93-.01 2.2.0.21.15.46.55.38A8.013 8.013.0 0016 8c0-4.42-3.58-8-8-8z"/></svg></a><ul class="list-style-none d-flex flex-wrap col-12 flex-justify-center flex-lg-justify-between mb-2 mb-lg-0"><li class="mr-3 mr-lg-0">© 2020. Theme by <a href=https://github.com/MeiK2333/github-style><span>github-style</span></a></li></ul></div><div class="d-flex flex-justify-center pb-6"><span class="f6 text-gray-light"></span></div></div></body><script type=application/javascript src=https://blog.stanleynguyen.me/js/github-style.js></script></html>
