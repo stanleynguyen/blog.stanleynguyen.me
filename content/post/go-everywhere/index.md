@@ -1,9 +1,9 @@
 +++
-title = "Going Places: How I used Golang for literally every part of a system"
+title = "Going Places: How I used Golang for literally every part of an IoT system"
 date = 2021-01-01T00:00:00+08:00
 author = "stanleynguyen"
 keywords = ["go", "golang", "internet of things", "web assembly", "embedded system", "raspberry pi", "arduino"]
-cover = "/post/go-everywhere/img/gora.png"
+cover = "/post/go-everywhere/img/wora.png"
 summary = "Fulfilling Java's multi-decade-old promise with Go"
 +++
 
@@ -17,7 +17,7 @@ If this post eventually contributes to another `WORA` wildfire (unintentionally 
 
 ## The Big Picture
 
-What I'm trying to construct using Go is a simple IoT (Internet-of-Things) system which controls an LED light.
+What I'm trying to construct using Go is a simple IoT (Internet-of-Things) system which controls a LED light.
 The whole system can be summed up in a single diagram
 
 ![System Diagram](./img/diagram.png)
