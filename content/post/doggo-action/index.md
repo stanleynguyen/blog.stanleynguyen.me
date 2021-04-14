@@ -17,7 +17,7 @@ idea 👏👏👏.
 It'll only do justice to dogs if there's an action that deliver them
 good boys to our PRs. That moment I knew exactly what my next Github Action project would be. Time to get to work.
 
-![Doggo get to work](/posts/doggo-action/images/get2work.gif)
+![Doggo get to work](/post/doggo-action/images/get2work.gif)
 
 ### The gist of creating a GitHub Action
 
@@ -86,7 +86,7 @@ Wanna know how I obtained my array full of doggo awesomeness (from ❤️ [GIPHY
 I actually went to GIPHY site, searched for doggoes, and scrolled down util a good
 amount of "giffy-boys" generated before pulling up my console
 
-![Inspect GIPHY](/posts/doggo-action/images/inspect.png)
+![Inspect GIPHY](/post/doggo-action/images/inspect.png)
 
 And with these few lines of JS
 

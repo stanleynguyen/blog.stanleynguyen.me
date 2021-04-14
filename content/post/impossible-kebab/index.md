@@ -14,11 +14,11 @@ I would not use straws and would bring my own bags to the supermarket, however, 
 So the folks at Impossible™ made “meat” from plants so that people like me can — in their own words — “Eat meat while saving Earth”.
 I have heard about them for quite some time but haven’t tried one until I noticed that my favourite take-away kebab joint offers Impossible™ kebabs on their menu.
 
-{{<figure src="/posts/impossible-kebab/img/stuffd.png" caption="Kebab impossible to resist?">}}
+{{<figure src="/post/impossible-kebab/img/stuffd.png" caption="Kebab impossible to resist?">}}
 
 That moment I knew that I had to have Impossible™ kebab for lunch and beef kebab for dinner with the same complement vegetables and condiments so I could compare them.
 
-{{<figure src="/posts/impossible-kebab/img/unglamkebabs.jpeg" caption="Pardon my un-glam bites but they look quite the same eh?">}}
+{{<figure src="/post/impossible-kebab/img/unglamkebabs.jpeg" caption="Pardon my un-glam bites but they look quite the same eh?">}}
 
 Verdict: Impossible™ meat tastes pretty much the same as beef with a slightly different texture that’s easier to disintegrate (definitely would have it again but not every day 😂).
 This made me question myself why I’d never tried it until then, and in turns, kickstarted my thought into a rabbit hole of modelling our purchasing decision of green products.
@@ -33,14 +33,14 @@ These factors mentioned above contribute and can be consolidated into a dimensio
 The other dimension of my model, since we’re talking about green products, can’t be anything else but “eco-friendliness”.
 I’m hypothesising that these are the 2 major dimensions on which people make a purchasing decision of green products.
 
-{{<figure src="/posts/impossible-kebab/img/empty_graph.png" caption="The bases for our model for economics of green products">}}
+{{<figure src="/post/impossible-kebab/img/empty_graph.png" caption="The bases for our model for economics of green products">}}
 
 As humans, we have certain limits to our decisions and actions.
 I wouldn’t pay 10 times the usual price of my kebab nor travel 2 hours away from my place to do my part in curbing food with high carbon footprint.
 Same goes to eco-friendliness, I wouldn’t eat something that tastes like rainbow 🌈 if it immediately raises Earth’s temperature by a degree.
 Let’s add these limits to our models using these dotted lines.
 
-{{<figure src="/posts/impossible-kebab/img/boundary_graph.png" caption="Left side of the green dotted line and bottom under the red dotted line are non-action zones">}}
+{{<figure src="/post/impossible-kebab/img/boundary_graph.png" caption="Left side of the green dotted line and bottom under the red dotted line are non-action zones">}}
 
 However, as we don’t make our decisions based on these limits alone, being in the top right quadrant doesn’t guarantee we would buy these products.
 So if it’s not the limit lines, what is our boundary for action vs non-action then?
@@ -48,7 +48,7 @@ How do we combine both aspects of purchasing decisions into a single function?
 Which mathematical model would take into account both factors without letting either one overpower the other (i.e. not letting something with extremely high convenience value and extremely low eco-friendliness enter the buy zone)?
 Our answer is product function of convenience and eco-friendliness. Something like
 
-{{<figure src="/posts/impossible-kebab/img/function.png" caption="x — eco-friendliness and y — convenience">}}
+{{<figure src="/post/impossible-kebab/img/function.png" caption="x — eco-friendliness and y — convenience">}}
 
 In the above function, we have x as the variable for eco-friendliness, and y for convenience.
 l*x* and l*y*, respectively, are the limits for these variables (represented by the green dotted line and the red dotted line in our graph previously).
@@ -57,12 +57,12 @@ The higher C is, the more it takes for us to make a buy decision (And as human w
 
 With l*x* and l*y* as bounds for eco-friendliness and convenience values (i.e. x > l*x* and y > l*y*), we can plot the boundary of the action zone like so — with the boundary (purple line) approaching the limit lines as we go further up or right the graphs but never converging with them (checkout [this Wiki](<https://en.wikipedia.org/wiki/Limit_(mathematics)>) if you’d love to find out more).
 
-{{<figure src="/posts/impossible-kebab/img/sexy_graph.png" caption="I reckon this is the kind of curve that mathematicians find sexy">}}
+{{<figure src="/post/impossible-kebab/img/sexy_graph.png" caption="I reckon this is the kind of curve that mathematicians find sexy">}}
 
 Now let’s apply this model to my meals and see where them kebabs are.
 Since both of my kebabs are definitely in the buy-zone, for demonstration purpose, I would add in raw beef for cooking — something which would hardly make it to my buy zone as I find cooking too much of a hassle.
 
-{{<figure src="/posts/impossible-kebab/img/kebab_graph.png" caption="Possibilities of my meals">}}
+{{<figure src="/post/impossible-kebab/img/kebab_graph.png" caption="Possibilities of my meals">}}
 
 As we can see from the graph, Impossible™ kebab is less “convenient” compared to my normal beef kebab with its higher price but its higher value of eco-friendliness kept it in the buy-zone for me.
 Raw-beef-for-cooking, despite being in the top-right quadrant — beating both my limits for convenience and eco-friendliness — didn’t make it to the buy zone as its combined value of convenience and eco-friendliness is not enough to get me to action.
@@ -71,13 +71,13 @@ Raw-beef-for-cooking, despite being in the top-right quadrant — beating both m
 
 Now rewind back to the year 2001, when GM released their electric car model EV1, Stan decided to buy one and was getting all pumped up to amaze his friend Joe about this car and how eco-friendly a person he was.
 
-{{<figure src="/posts/impossible-kebab/img/ev1.png" caption="But..But.. It’s eco-friendly">}}
+{{<figure src="/post/impossible-kebab/img/ev1.png" caption="But..But.. It’s eco-friendly">}}
 
 Stan didn’t even manage to tell Joe that it’s environmentally friendly! And GM EV1 did really [prove to be pretty impractical (50mph top speed and 80 miles range full charge) and too expensive to be commercially viable](https://en.wikipedia.org/wiki/General_Motors_EV1#Cancellation).
 
 Fast-forward to 2012, this time our environmentalist Stan managed to be one of the first people to get himself a newly delivered Tesla model S. Here he is showing Joe his new car.
 
-{{<figure src="/posts/impossible-kebab/img/tesla_s.png" caption="Joe was truly impressed this time round!">}}
+{{<figure src="/post/impossible-kebab/img/tesla_s.png" caption="Joe was truly impressed this time round!">}}
 
 Stan finally had his chance to proudly show off his eco-friendly car with curves as sexy as any other gasoline-powered cars.
 Going beyond our imaginary story of Stan and Joe, Tesla cars actually compete heads-on with gasoline-powered cars, racking in practical numbers for top speed and range while having eye-catching designs (fun fact: Tesla’s first 4 models’ names combined is “S3XY” if you know what Elon means 😉).
@@ -89,7 +89,7 @@ A model with eco-friendliness as a secondary selling point or one with the major
 Let’s apply our model on these EVs with the additions of a normal gasoline-powered sedan from Ford (white colour) and a hybrid car model from Toyota (grey colour).
 We should get something like this
 
-{{<figure src="/posts/impossible-kebab/img/car_graph.png" caption="Clear winner for Tesla?">}}
+{{<figure src="/post/impossible-kebab/img/car_graph.png" caption="Clear winner for Tesla?">}}
 
 From the rough graph that I plot above, doesn’t it look like Tesla is clearly winning the race against less eco-friendly counterparts because it’s not much less “convenient”?
 However, Tesla EVs (or other commercial EVs on the market) are not yet clearly superior to their gasoline-powered alternatives.

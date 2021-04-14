@@ -15,7 +15,7 @@ I myself is also no exception as I have been using [1.1.1.1](https://1.1.1.1/dns
 Unfortunately, having custom DNS nameservers also comes with some setbacks for someone who uses their computer all the time in all the different places.
 With custom DNS servers, this is what you get on a network that tries to block them (together with VPN services etc.)
 
-![blocked by network](/posts/dns-command/img/blocked.png)
+![blocked by network](/post/dns-command/img/blocked.png)
 
 Another problem that we would have with custom DNS servers is that networks' login pages just don't show up as the default DNS is not being used to redirect us to local network login page.
 Of course it would be easy to just remove the configurations as you (most likely) was the one who set them up, how hard would it be to remove?
