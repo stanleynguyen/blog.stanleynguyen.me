@@ -5,7 +5,7 @@ through out March to encourage folks to create more awesome and useful actions.
 While browsing through the submissions, I found <a href=https://github.com/ruairidhwm/action-cats>a cool GitHub Action</a>
 that posts cat gifs on pull requests. Shout out to <a href=https://ruairidh.dev>Ruairidh</a> with his cool
 idea 👏👏👏.</p><p>It&rsquo;ll only do justice to dogs if there&rsquo;s an action that deliver them
-good boys to our PRs. That moment I knew exactly what my next Github Action project would be. Time to get to work.</p><p><img src=/posts/doggo-action/images/get2work.gif alt="Doggo get to work"></p><h3 id=the-gist-of-creating-a-github-action>The gist of creating a GitHub Action</h3><p><a href=https://help.github.com/en/actions/getting-started-with-github-actions/about-github-actions>GitHub actions</a>
+good boys to our PRs. That moment I knew exactly what my next Github Action project would be. Time to get to work.</p><p><img src=/post/doggo-action/images/get2work.gif alt="Doggo get to work"></p><h3 id=the-gist-of-creating-a-github-action>The gist of creating a GitHub Action</h3><p><a href=https://help.github.com/en/actions/getting-started-with-github-actions/about-github-actions>GitHub actions</a>
 are basically premade (with ❤️) units of work to be used GitHub workflows (think <a href=https://travis-ci.org/>Travis</a>&lsquo;s builds).
 Github actions can be either built with <a href=https://help.github.com/en/actions/building-actions/creating-a-docker-container-action>Docker containers</a>
 or <a href=https://help.github.com/en/actions/building-actions/creating-a-javascript-action>JS/TS scripts</a>.
@@ -51,7 +51,7 @@ and also serves gifs (like <a href=https://giphy.com>GIPHY</a>). Since there&rsq
 for me to store my GIPHY API key securely to be used in action-dogs, I fell back
 to the good-ol-way of static JSON array.</p><p>Wanna know how I obtained my array full of doggo awesomeness (from ❤️ <a href=https://giphy.com>GIPHY</a> ❤️) without any API key generated in the process?
 I actually went to GIPHY site, searched for doggoes, and scrolled down util a good
-amount of &ldquo;giffy-boys&rdquo; generated before pulling up my console</p><p><img src=/posts/doggo-action/images/inspect.png alt="Inspect GIPHY"></p><p>And with these few lines of JS</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-js data-lang=js><span style=color:#66d9ef>const</span> <span style=color:#a6e22e>dogsData</span> <span style=color:#f92672>=</span> [];
+amount of &ldquo;giffy-boys&rdquo; generated before pulling up my console</p><p><img src=/post/doggo-action/images/inspect.png alt="Inspect GIPHY"></p><p>And with these few lines of JS</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-js data-lang=js><span style=color:#66d9ef>const</span> <span style=color:#a6e22e>dogsData</span> <span style=color:#f92672>=</span> [];
 document
   .<span style=color:#a6e22e>querySelectorAll</span>(<span style=color:#e6db74>&#34;a._2SwDiFPqIlZmUDkxHNOeqU&#34;</span>)
   .<span style=color:#a6e22e>forEach</span>((<span style=color:#a6e22e>e</span>) =&gt; <span style=color:#a6e22e>dogsData</span>.<span style=color:#a6e22e>push</span>(<span style=color:#a6e22e>e</span>.<span style=color:#a6e22e>href</span>));
