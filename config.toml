@@ -3,7 +3,7 @@ languageCode = "en-us"
 title = "Personal blog of Stanley Nguyen | software engineer & open-source enthusiast"
 googleAnalytics = "UA-167295669-2"
 theme = "github-style"
-copyright = "© 2020. Theme by <a href=\"https://github.com/MeiK2333/github-style\"><span>github-style</span></a>"
+copyright = "© 2021. Theme by <a href=\"https://github.com/MeiK2333/github-style\"><span>github-style</span></a>"
 
 [params]
     author = "Stanley Nguyen"
