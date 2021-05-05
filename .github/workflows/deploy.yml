@@ -8,6 +8,8 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-18.04
+    env:
+      HUGO_ENV: production
     steps:
       - uses: actions/checkout@v2
         with:
