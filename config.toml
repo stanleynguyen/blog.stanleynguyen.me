@@ -1,7 +1,6 @@
 baseURL = "https://blog.stanleynguyen.me/"
 languageCode = "en-us"
 title = "Personal blog of Stanley Nguyen | software engineer & open-source enthusiast"
-googleAnalytics = "UA-167295669-2"
 theme = "github-style"
 copyright = "© 2021. Theme by <a href=\"https://github.com/MeiK2333/github-style\"><span>github-style</span></a>"
 
@@ -19,3 +18,7 @@ url = "https://stanley.win"
 keywords = "blog, stanleynguyen, software, engineer, open-source"
 headerIcon = "/images/github-mark-white.png"
 disableDarkMode = true
+
+[services]
+  [services.googleAnalytics]
+    ID = "UA-167295669-2"

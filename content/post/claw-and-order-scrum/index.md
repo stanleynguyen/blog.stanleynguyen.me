@@ -3,7 +3,7 @@ title = "How our Discord bot bridges async standups and sprint boards with AI"
 date = 2026-04-11T10:00:00+08:00
 author = "stanleynguyen"
 keywords = ["discord", "bot", "scrum", "standup", "ai", "claude", "linear", "llm"]
-cover = ""
+cover = "./img/claw_n_order.png"
 summary = "How we built a Discord bot to bridge the gap between async standups and sprint boards, and why it only became practical now"
 +++
 
